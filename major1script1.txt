@@ -1,0 +1,44 @@
+#!/bin/bash
+cat > file_one << EOF
+First lne of file_one
+Second line of file_one
+Third Line of file_one 
+EOF
+cat > file_two << EOF
+First lne of file_two
+Second line of file_two
+Third Line of file_two
+EOF
+cat > file_three << EOF
+First lne of file_three
+Second line of file_three
+Third Line of file_three
+EOF
+cat > file_four << EOF
+First lne of file_four
+Second line of file_four
+Third Line of file_four
+EOF
+
+echo "content of file_one"
+cat file_one
+echo "========================"
+echo "content of file_two"
+cat file_two
+echo "========================"
+echo "content of file_three"
+cat file_three
+echo "========================"
+echo "content of file_four"
+cat file_four
+echo "========================"
+
+cat file_four file_one file_two file_three > JOINTFILE
+echo "content of JOINTFILE"
+cat JOINTFILE
+echo "listing of current directory"
+ls
+rm file_one file_two file_three file_four JOINTFILE
+echo "listing of current directory"
+ls
+
