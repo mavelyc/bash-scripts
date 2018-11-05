@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ $# -ne 4 ]
+ then 
+  echo "My guy, what's with the constant brickage"
+ exit
+fi
+
+egrep "$3|$4" $1 > $2
+
+echo "done" >> $2

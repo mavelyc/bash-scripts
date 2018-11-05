@@ -1,0 +1,13 @@
+#!/bin/bash
+
+
+if [ $# -eq 3 ]
+ then
+  for ((i=1; i<=$3; i++))
+   do
+    echo "$i,$2" >> "$1"
+   done 
+else
+ echo "You done bricked my guy"
+ exit
+fi
