@@ -1,0 +1,43 @@
+allfiles1 = bscript2 bscript1 bscript3 C_section B_section A_section role.cpp role1.cpp 
+allfiles2 = role2.cpp role3.cpp role4.cpp role1.o role2.o role3.o role4.o role1 role2 role3 
+allfiles3 = role4
+cleanme = bscript2 bscript3 role.cpp role2.cpp role3.cpp role4.cpp role1.o role2.o role3.o
+cleanme2 = role4.o role1 role2 role3 role4 temp.cpp
+
+all: $(allfiles1) $(allfiles2) $(allfiles3)
+
+bscript2: bscript1
+	sed 's/1/2/g' bscript1 > bscript2
+	chmod u+x bscript2
+bscript3: bscript1
+	sed 's/1/4/g' bscript1 > bscript3
+	chmod u+x bscript3
+role.cpp: C_section B_section A_section
+	cat C_section > role.cpp
+	cat B_section >> role.cpp
+	cat A_section >> role.cpp
+role2.cpp: role1.cpp
+	sed 's/1/2/' role1.cpp > role2.cpp
+role3.cpp: role1.cpp
+	sed 's/1/3/' role1.cpp > role3.cpp
+role4.cpp: role1.cpp
+	sed 's/1/4/' role1.cpp > temp.cpp
+	sed 's/NOT EXPENSIVE/EXPENSIVE/' temp.cpp > role4.cpp
+role1.o: role1.cpp
+	g++ -c role1.cpp
+role2.o: role2.cpp
+	g++ -c role2.cpp
+role3.o: role3.cpp
+	g++ -c role3.cpp
+role4.0: role4.cpp
+	g++ -c role4.cpp
+role1: role.cpp bscript1
+	bscript1
+role2: role.cpp bscript2
+	bscript2
+role3: role.cpp role1.o role2.o role3.o role4.o
+	g++ -o role3 role.cpp -D_X3 role1.o role2.o role3.o role4.o
+role4: role.cpp bscript3
+	bscript3
+clean:
+	rm $(cleanme) $(cleanme2)

@@ -1,0 +1,18 @@
+brochure: brochure1 brochure2 brochure3 brochure4 preppy
+	cat temp4 > brochure
+	cat temp3 >> brochure
+	cat temp2 >> brochure
+	cat temp1 >> brochure
+	rm preppy
+	rm temp1 temp2 temp3 temp4
+
+preppy: preppy.cpp
+	g++ -o preppy preppy.cpp
+brochure1: division1/brochure.doc preppy
+	preppy division1/brochure.doc > temp1
+brochure2: division2/brochure.doc preppy
+	preppy division2/brochure.doc > temp2
+brochure3: division3/brochure.doc preppy
+	preppy division3/brochure.doc > temp3
+brochure4: division4/brochure.doc preppy
+	preppy division4/brochure.doc > temp4
