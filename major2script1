@@ -1,0 +1,77 @@
+#!/bin/bash
+
+mkdir MYDIR
+echo "created MYDIR"
+cd MYDIR
+mkdir mydir
+echo "created mydir"
+
+for var in {1..13}
+ do
+  echo "This is my_file$var" > my_file"$var"
+  echo "Followed by my_file$(($var+1))" >> my_file"$var"
+  echo "And then followed by my_file$(($var+2))" >> my_file"$var"
+ done
+
+echo "This is my_file14" > my_file14
+echo "Followed by my file15" >> my_file14
+echo "And then not followed" >> my_file14
+echo "This is my_file15" > my_file15
+echo "Not followed" >> my_file15
+echo "And then not followed" >> my_file15
+
+echo "MYDIR listing"
+
+Files=`find -type f`
+
+for f in $Files
+ do 
+  echo $(basename $f)
+ done
+
+echo "mydir listing"
+ls mydir
+
+for s in $Files
+do
+ Check=`grep '1\|2' $s`
+ if [ -n "$Check" ]
+  then
+  mv $s mydir
+ fi
+done
+
+New=`find /u50/mavelyc/MYDIR -maxdepth 1 -type f`
+echo "MYDIR listing"
+for show in $New
+ do 
+  echo $(basename $show)
+ done
+
+> TOTAL
+for add in $New
+ do
+  cat $add >> TOTAL
+ done
+
+echo "TOTAL"
+cat TOTAL
+
+echo "mydir listing"
+deep=`find /u50/mavelyc/MYDIR/mydir -maxdepth 1 -type f`
+for d in $deep
+ do
+  echo $(basename $d)
+ done
+
+cd mydir
+> total
+for tot in $deep
+ do
+  cat $tot >> total
+ done
+echo "total"
+cat total
+
+cd
+rm -r MYDIR

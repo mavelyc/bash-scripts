@@ -1,0 +1,60 @@
+#!/bin/bash
+
+
+usage (){
+ echo Usage: script2 -Y
+ echo "    or"
+ echo "       script2 -Y <file1>"
+ echo "    or"
+ echo "       script2 -Y <file1> <file2>"
+}
+
+if [ "$#" -gt 3 ]
+ then
+  echo "wrong number of command line arguments"
+  usage
+elif [ "$#" -lt 1  ]
+ then
+  echo "wrong number of command line arguments"
+  usage
+fi
+
+
+if [ "$1" == "-Y" ]
+ then 
+  if [ "$#" -eq 1 ]
+   then
+    echo "Appropriate"
+    exit 1
+  elif [ "$#" -eq 2 ]
+   then
+    echo "Appropriate, file1=$2"
+    echo "" > "$2"
+    for i in {1..8}
+     do
+      echo "$2:$i" >> "$2"
+     done
+    exit 1
+  elif [ "$#" -eq 3 ]
+   then
+    echo "Appropriate, file1=$2 & file2=$3"
+     > "$2"
+     for i in {1..8}
+      do
+       echo "$2:$i" >> "$2"
+     done
+    > "$3"
+    for j in {1..8}
+     do
+      echo "$3:$j" >> "$3"
+    done
+    exit 1
+  fi
+elif [ "$1" != "-Y" ]
+ then
+  if [ "$#" -eq 1 ]
+   then
+   echo "incorrect command line argument: $1"
+   usage
+  fi
+fi
